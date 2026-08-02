@@ -3,615 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jejak Sampahku - Simulator Harian Interaktif</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>A Day in My Life - WALHI Jatim</title>
     <style>
-        .bin-wave {
-            transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.5s ease;
+        :root {
+            --primary-color: #2e7d32;
+            --primary-hover: #1b5e20;
+            --bg-color: #f4f6f8;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #e0e0e0;
         }
-        @keyframes popIn {
-            0% { transform: scale(0.96); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .pop-in {
-            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
         }
-        .custom-scroll::-webkit-scrollbar {
-            width: 5px;
+
+        .container {
+            background-color: var(--card-bg);
+            max-width: 650px;
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            border: 1px solid var(--border-color);
         }
-        .custom-scroll::-webkit-scrollbar-track {
-            background: rgba(15, 23, 42, 0.6);
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--bg-color);
+            padding-bottom: 15px;
         }
-        .custom-scroll::-webkit-scrollbar-thumb {
-            background: #334155;
+
+        .brand-tag {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .btn-cta {
+            display: block;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .btn-cta:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Disclaimer & Methodology Section */
+        .methodology-box {
+            background-color: #f9fbe7;
+            border-left: 4px solid #827717;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 25px;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .methodology-box h3 {
+            color: #33691e;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .methodology-box ul, .methodology-box ol {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .methodology-box li {
+            margin-bottom: 8px;
+        }
+
+        .sources {
+            border-top: 1px dashed #c0ca33;
+            padding-top: 12px;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: #558b2f;
+        }
+
+        .sources strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .formula {
+            background-color: #ffffff;
+            padding: 8px 12px;
             border-radius: 4px;
+            border: 1px solid #dce775;
+            font-family: monospace;
+            display: inline-block;
+            margin-top: 5px;
         }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen font-sans flex flex-col justify-between selection:bg-emerald-500 selection:text-slate-950">
+<body>
 
-    <!-- NAVBAR HEADER -->
-    <header class="p-4 border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50">
-        <div class="max-w-4xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <i class="fa-solid fa-recycle text-emerald-400 text-2xl animate-spin-slow"></i>
-                <h1 class="font-bold text-lg tracking-wide text-emerald-400">JejakSampah<span class="text-slate-400 font-normal">.id</span></h1>
-            </div>
-            <div id="user-badge" class="hidden bg-slate-800 px-3 py-1 rounded-full text-xs text-emerald-300 font-medium border border-slate-700/80">
-                <i class="fa-solid fa-user text-xs mr-1 text-emerald-400"></i> <span id="badge-name">Pengguna</span>
+    <div class="container">
+        <!-- Header & Branding -->
+        <div class="header">
+            <span class="brand-tag">WALHI Jatim</span>
+            <button class="btn-cta" onclick="startActivity()">A Day in My Life</button>
+        </div>
+
+        <!-- Disclaimer & Metodologi Pengukuran -->
+        <div class="methodology-box">
+            <h3>📢 Catatan & Metodologi Pengukuran Berat</h3>
+            <p><strong>Mengapa Pengukuran Ini Penting?</strong><br>
+            WALHI Jatim berkomitmen menjaga keadilan dan transparansi bagi seluruh peserta. Setiap poin atau capaian yang Anda dapatkan dihitung berdasarkan bobot riil yang terverifikasi.</p>
+            
+            <br>
+            <strong>Metodologi Pengukuran yang Digunakan:</strong>
+            <ol>
+                <li><strong>Standar Perhitungan:</strong> Penimbangan mengacu pada <em>Standar Operasional Prosedur (SOP)</em> penimbangan material/sampah terpisah dengan toleransi margin eror sebesar &plusmn; 5%.</li>
+                <li><strong>Verifikasi Data:</strong>
+                    <ul>
+                        <li>Setiap input wajib menyertakan foto angka digital/jarum pada timbangan di atas permukaan rata.</li>
+                        <li>Sistem mengaplikasikan <em>Sanity Check</em> (deteksi anomali otomatis) untuk mencegah manipulasi data.</li>
+                    </ul>
+                </li>
+                <li><strong>Format Konversi:</strong> Perhitungan skor dilakukan secara otomatis dengan rumus transparan:
+                    <div class="formula">Skor Akhir = Berat Bersih (kg) &times; Bobot Kategori Material</div>
+                </li>
+            </ol>
+
+            <div class="sources">
+                <strong>📋 Rujukan & Sumber Standar:</strong>
+                <ul>
+                    <li>Pedoman Pengelolaan Sampah Spesifik & Daur Ulang (Kementerian Lingkungan Hidup dan Kehutanan / KLHK).</li>
+                    <li>Standar SNI 19-3964-1994 tentang Metode Pengambilan dan Pengukuran Contoh Timbulan dan Komposisi Sampah.</li>
+                </ul>
             </div>
         </div>
-    </header>
+    </div>
 
-    <!-- MAIN CONTAINER -->
-    <main class="max-w-4xl mx-auto p-4 w-full flex-grow flex flex-col justify-center">
-
-        <!-- SCREEN 1: START & NAME INPUT SCREEN -->
-        <section id="start-screen" class="text-center py-8 pop-in">
-            <div class="inline-block p-4 bg-emerald-500/10 rounded-full text-emerald-400 mb-4 border border-emerald-500/20">
-                <i class="fa-solid fa-dumpster-fire text-5xl"></i>
-            </div>
-            <h2 class="text-3xl sm:text-4xl font-extrabold mb-3 tracking-tight">Hitung Jejak Sampah Harianmu!</h2>
-            <p class="text-slate-400 max-w-xl mx-auto mb-6 text-sm sm:text-base leading-relaxed">
-                Pilih konsumsi harianmu, **ketik sendiri merek/brand produknya**, dan tambahkan barang kustom jika tidak ada di daftar. Lihat akumulasi sampahmu bertambah secara langsung!
-            </p>
-            
-            <!-- FORM NAMA -->
-            <div class="max-w-xs mx-auto mb-6">
-                <label for="username-input" class="block text-xs font-semibold text-slate-400 mb-2 text-left">Nama / Panggilan Kamu:</label>
-                <input type="text" id="username-input" placeholder="Misal: Budi / Siti..." class="w-full bg-slate-800/90 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 transition">
-            </div>
-
-            <button onclick="startGame()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-8 py-3.5 rounded-xl shadow-lg shadow-emerald-500/20 transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-sm sm:text-base">
-                Mulai Simulasi <i class="fa-solid fa-arrow-right ml-2"></i>
-            </button>
-        </section>
-
-        <!-- SCREEN 2: GAMEPLAY SCREEN -->
-        <section id="game-screen" class="hidden grid grid-cols-1 md:grid-cols-3 gap-6 my-auto">
-            
-            <!-- LEFT & CENTER: QUEST SELECTION (2 COLS) -->
-            <div class="md:col-span-2 space-y-4">
-                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 flex justify-between items-start">
-                    <div>
-                        <span id="step-indicator" class="text-xs font-semibold text-emerald-400 tracking-wider uppercase">Langkah 1 dari 4</span>
-                        <h3 id="step-title" class="text-xl font-bold mt-1">Aktivitas Pagi Hari</h3>
-                        <p id="step-desc" class="text-xs text-slate-400 mt-1">Pilih item, ketik nama merek/brand, atau tambah item sendiri:</p>
-                    </div>
-                </div>
-
-                <!-- OPTIONS CONTAINER -->
-                <div id="options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <!-- Cards & Custom Input generated by JS -->
-                </div>
-
-                <div class="flex justify-between items-center mt-4">
-                    <button id="prev-btn" onclick="prevStep()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-4 py-2 rounded-lg text-sm border border-slate-700 transition">
-                        <i class="fa-solid fa-chevron-left mr-1"></i> Kembali
-                    </button>
-                    <button id="next-btn" onclick="nextStep()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-6 py-2.5 rounded-lg text-sm transition shadow-md shadow-emerald-500/10">
-                        Lanjut <i class="fa-solid fa-chevron-right ml-1"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- RIGHT: VIRTUAL TRASH BIN (1 COL) -->
-            <div class="bg-slate-800/60 rounded-xl p-5 border border-slate-700/80 flex flex-col justify-between items-center text-center relative overflow-hidden">
-                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Tong Sampah Digital</h4>
-                
-                <!-- VISUAL BIN TANK -->
-                <div class="w-full h-64 bg-slate-900 rounded-lg border-2 border-slate-700 relative overflow-hidden flex flex-col justify-end">
-                    <!-- Liquid/Waste Filler -->
-                    <div id="bin-filler" class="bin-wave w-full bg-emerald-500/30 border-t-2 border-emerald-400 h-0 relative">
-                        <div id="bin-items-icons" class="absolute inset-0 p-2 flex flex-wrap gap-1.5 content-start overflow-y-auto custom-scroll opacity-90">
-                            <!-- Dynamic mini icons -->
-                        </div>
-                    </div>
-                    <!-- Empty State Text -->
-                    <div id="empty-bin-text" class="absolute inset-0 flex items-center justify-center text-slate-600 text-xs px-4">
-                        Masih kosong. Pilih item & isi brand untuk menambah sampah.
-                    </div>
-                </div>
-
-                <!-- LIVE COUNTER -->
-                <div class="mt-4 w-full bg-slate-900/90 p-3 rounded-lg border border-slate-700/80">
-                    <div class="text-xs text-slate-400">Total Akumulasi Hari Ini</div>
-                    <div class="text-2xl font-black text-emerald-400"><span id="live-weight">0</span> <span class="text-sm font-normal text-slate-300">gram</span></div>
-                    <div class="text-[10px] text-slate-500 mt-0.5"><span id="live-item-count">0</span> item sampah tercatat</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SCREEN 3: SUMMARY RESULT -->
-        <section id="result-screen" class="hidden pop-in py-6">
-            <div class="max-w-md mx-auto bg-slate-800/90 rounded-2xl border border-slate-700 p-6 shadow-2xl relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
-                
-                <div class="text-center mb-5">
-                    <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full">Audit Sampah Harian</span>
-                    <h2 class="text-2xl font-bold mt-2">Kartu Hasil: <span id="result-user-name" class="text-emerald-400"></span></h2>
-                </div>
-
-                <!-- TOTAL BIG STAT -->
-                <div class="bg-slate-900 p-4 rounded-xl text-center border border-slate-700/60 mb-5">
-                    <div class="text-xs text-slate-400 uppercase tracking-wider mb-1">Total Berat Sampah Harian</div>
-                    <div id="final-weight" class="text-4xl font-extrabold text-emerald-400">0 gram</div>
-                    <div id="final-items" class="text-xs text-slate-400 mt-1">dari total 0 kemasan/produk</div>
-                </div>
-
-                <!-- BREAKDOWN BY TYPE -->
-                <div class="space-y-3 mb-5">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Rincian Jenis Sampah</h3>
-                    <div id="breakdown-list" class="space-y-2 text-xs">
-                        <!-- Dynamic Progress Bars -->
-                    </div>
-                </div>
-
-                <!-- BRAND & ITEM SUMMARY TABLE -->
-                <div class="space-y-2 mb-5">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Daftar Produk & Merek (Audit Trail)</h3>
-                    <div class="bg-slate-900 rounded-xl p-3 border border-slate-700/60 text-xs max-h-48 overflow-y-auto custom-scroll">
-                        <ul id="brand-list" class="divide-y divide-slate-800">
-                            <!-- Dynamic Brands -->
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- ANALOGY IMPACT -->
-                <div class="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3.5 mb-6 flex gap-3 items-center">
-                    <i class="fa-solid fa-triangle-exclamation text-amber-400 text-xl flex-shrink-0"></i>
-                    <p id="analogy-text" class="text-xs text-amber-200 leading-relaxed">
-                        -
-                    </p>
-                </div>
-
-                <!-- ACTION BUTTONS -->
-                <div class="space-y-2">
-                    <button onclick="resetGame()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-3 rounded-xl transition text-sm">
-                        <i class="fa-solid fa-rotate-left mr-1"></i> Ulangi Simulasi
-                    </button>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="p-4 text-center text-xs text-slate-600 border-t border-slate-800">
-        Simulasi Edukasi Sampah Harian &copy; 2026
-    </footer>
-
-    <!-- GAME LOGIC JAVASCRIPT -->
     <script>
-        // DATASET GAME (CUP & SEDOTAN DIPISAH, MERK DIISI MANUALLY)
-        const gameSteps = [
-            {
-                phase: "Pagi Hari",
-                title: "Sarapan & Kopi Pagi",
-                desc: "Pilih item sarapanmu, ketik nama merek/brandnya, atau tambah item lain:",
-                options: [
-                    { id: "p1", name: "Kopi Saset / Instan", type: "Plastik Fleksibel (Saset)", brandPlaceholder: "Misal: Kapal Api, Torabika...", weight: 12, icon: "fa-mug-hot" },
-                    { id: "p2", name: "Air Mineral Botol", type: "Plastik PET", brandPlaceholder: "Misal: Aqua, Le Minerale...", weight: 20, icon: "fa-bottle-water" },
-                    { id: "p3", name: "Nasi Bungkus", type: "Kertas Minyak & Kantong Plastik", brandPlaceholder: "Misal: Nasi Uduk Bu Ani...", weight: 25, icon: "fa-utensils" },
-                    { id: "p4", name: "Susu Kotak UHT", type: "Karton Multilayer (Tetra Pak)", brandPlaceholder: "Misal: Ultra Milk, Indomilk...", weight: 18, icon: "fa-box-tissue" },
-                    { id: "p5", name: "Mie Instan (Bungkus/Cup)", type: "Plastik Fleksibel / Sterofoam", brandPlaceholder: "Misal: Indomie, Pop Mie...", weight: 15, icon: "fa-bowl-food" },
-                    { id: "p6", name: "Bawa Tumbler & Bekal Sendiri", type: "Tanpa Sampah", brandPlaceholder: "", weight: 0, icon: "fa-leaf", noBrandNeeded: true }
-                ]
-            },
-            {
-                phase: "Siang Hari",
-                title: "Makan Siang & Minuman Segar",
-                desc: "Item es kopi susu dan sedotan kini dipisah secara spesifik:",
-                options: [
-                    { id: "s1", name: "Cup Plastik Es Kopi Susu", type: "Plastik PP/PET Rigid", brandPlaceholder: "Misal: Janji Jiwa, Kenangan...", weight: 30, icon: "fa-glass-water" },
-                    { id: "s2", name: "Sedotan Plastik", type: "Plastik Sekali Pakai", brandPlaceholder: "Misal: Generik / Kedai Kopi...", weight: 3, icon: "fa-stroopwafel" },
-                    { id: "s3", name: "Makan Siang Takeaway", type: "Styrofoam / Paperbox", brandPlaceholder: "Misal: KFC, Resto Padang...", weight: 45, icon: "fa-box" },
-                    { id: "s4", name: "Teh Kemasan Botol", type: "Plastik PET", brandPlaceholder: "Misal: Sosro, Teh Pucuk...", weight: 22, icon: "fa-bottle-droplet" },
-                    { id: "s5", name: "Camilan / Snack Saset", type: "Plastik Fleksibel", brandPlaceholder: "Misal: Chitato, Oreo...", weight: 15, icon: "fa-cookie-bite" },
-                    { id: "s6", name: "Makan di Tempat (Dine-in)", type: "Tanpa Sampah", brandPlaceholder: "", weight: 0, icon: "fa-utensils", noBrandNeeded: true }
-                ]
-            },
-            {
-                phase: "Sore Hari",
-                title: "Jajanan & Paket Online",
-                desc: "Sambil menyelesaikan pekerjaan atau santai sore:",
-                options: [
-                    { id: "so1", name: "Cup Minuman Boba", type: "Plastik Rigid + Seal Plastik", brandPlaceholder: "Misal: Mixue, Chatime...", weight: 38, icon: "fa-whiskey-glass" },
-                    { id: "so2", name: "Sedotan Boba Tebal", type: "Plastik Sekali Pakai", brandPlaceholder: "Misal: Generik Boba...", weight: 5, icon: "fa-stroopwafel" },
-                    { id: "so3", name: "Paket E-Commerce (Beli Online)", type: "Bubble Wrap & Lakban", brandPlaceholder: "Misal: Shopee, Tokopedia...", weight: 65, icon: "fa-box-open" },
-                    { id: "so4", name: "Kantong Kresek Belanja", type: "Plastik HD/LDPE", brandPlaceholder: "Misal: Indomaret, Alfamart...", weight: 10, icon: "fa-bag-shopping" },
-                    { id: "so5", name: "Bungkus Rokok / VAPE", type: "B3 & Foil / Plastik", brandPlaceholder: "Misal: Sampoerna, RELX...", weight: 12, icon: "fa-smoking" },
-                    { id: "so6", name: "Buah Segar Tanpa Kemasan", type: "Organik", brandPlaceholder: "", weight: 0, icon: "fa-apple-whole", noBrandNeeded: true }
-                ]
-            },
-            {
-                phase: "Malam Hari",
-                title: "Perawatan & Rutinitas Malam",
-                desc: "Aktivitas konsumsi penutup harimu di rumah:",
-                options: [
-                    { id: "m1", name: "Sheet Mask / Skincare Saset", type: "Plastik Fleksibel / Foil", brandPlaceholder: "Misal: Garnier, Wardah...", weight: 15, icon: "fa-pump-soap" },
-                    { id: "m2", name: "Makan Malam Delivery Online", type: "Plastik Kantong & Container", brandPlaceholder: "Misal: GrabFood, GoFood...", weight: 55, icon: "fa-motorcycle" },
-                    { id: "m3", name: "Sampo / Sabun Saset", type: "Plastik Fleksibel (Saset)", brandPlaceholder: "Misal: Sunsilk, Lifebuoy...", weight: 10, icon: "fa-shower" },
-                    { id: "m4", name: "Tissue Basah Sekali Pakai", type: "Serat Sintetis/Plastik", brandPlaceholder: "Misal: Mitu, Cussons...", weight: 12, icon: "fa-box-archive" },
-                    { id: "m5", name: "Tidak Mengonsumsi Apapun", type: "Tanpa Sampah", brandPlaceholder: "", weight: 0, icon: "fa-moon", noBrandNeeded: true }
-                ]
-            }
-        ];
-
-        // STATE GAME
-        let userName = "Pengguna";
-        let currentStep = 0;
-        // Step Selections structure: stepIndex -> Map of optionId -> { checked: bool, brand: string }
-        let userSelections = { 0: {}, 1: {}, 2: {}, 3: {} };
-        // Custom items added by user per step: stepIndex -> Array of { id, name, brand, type, weight, icon }
-        let customItems = { 0: [], 1: [], 2: [], 3: [] };
-
-        function startGame() {
-            const inputName = document.getElementById('username-input').value.trim();
-            userName = inputName !== "" ? inputName : "Pengguna";
-            
-            document.getElementById('badge-name').innerText = userName;
-            document.getElementById('start-screen').classList.add('hidden');
-            document.getElementById('game-screen').classList.remove('hidden');
-            document.getElementById('user-badge').classList.remove('hidden');
-            
-            currentStep = 0;
-            userSelections = { 0: {}, 1: {}, 2: {}, 3: {} };
-            customItems = { 0: [], 1: [], 2: [], 3: [] };
-            renderStep();
-            updateBinUI();
-        }
-
-        function renderStep() {
-            const data = gameSteps[currentStep];
-            
-            // Update Headers
-            document.getElementById('step-indicator').innerText = `Langkah ${currentStep + 1} dari ${gameSteps.length} • ${data.phase}`;
-            document.getElementById('step-title').innerText = data.title;
-            document.getElementById('step-desc').innerText = data.desc;
-
-            // Prev Button state
-            document.getElementById('prev-btn').style.visibility = currentStep === 0 ? 'hidden' : 'visible';
-
-            // Next Button Text
-            const nextBtn = document.getElementById('next-btn');
-            if (currentStep === gameSteps.length - 1) {
-                nextBtn.innerHTML = `Lihat Hasil <i class="fa-solid fa-flag-checkered ml-1"></i>`;
-            } else {
-                nextBtn.innerHTML = `Lanjut <i class="fa-solid fa-chevron-right ml-1"></i>`;
-            }
-
-            // Render Options
-            const container = document.getElementById('options-container');
-            container.innerHTML = '';
-
-            const currentStepSelections = userSelections[currentStep] || {};
-
-            // 1. Render Preset Options
-            data.options.forEach(opt => {
-                const itemState = currentStepSelections[opt.id] || { checked: false, brand: '' };
-                const isChecked = itemState.checked;
-
-                const card = document.createElement('div');
-                card.className = `p-3 rounded-xl border transition-all flex flex-col justify-between pop-in ${
-                    isChecked 
-                    ? 'bg-emerald-500/15 border-emerald-400 text-white shadow-md' 
-                    : 'bg-slate-800/80 border-slate-700/80 text-slate-300 hover:bg-slate-700/40'
-                }`;
-
-                card.innerHTML = `
-                    <div class="flex items-start gap-2.5 cursor-pointer" onclick="toggleOption('${opt.id}')">
-                        <div class="p-2 rounded-lg flex-shrink-0 ${isChecked ? 'bg-emerald-500 text-slate-950' : 'bg-slate-700 text-emerald-400'}">
-                            <i class="fa-solid ${opt.icon} text-sm"></i>
-                        </div>
-                        <div class="flex-grow pr-1">
-                            <div class="font-bold text-xs sm:text-sm leading-snug">${opt.name}</div>
-                            <div class="text-[10px] text-slate-400 mt-0.5">Jenis: ${opt.type} • <span class="text-emerald-400 font-semibold">+${opt.weight}g</span></div>
-                        </div>
-                        <input type="checkbox" ${isChecked ? 'checked' : ''} class="w-4 h-4 accent-emerald-500 rounded cursor-pointer mt-0.5">
-                    </div>
-
-                    ${!opt.noBrandNeeded ? `
-                        <div class="mt-2.5 pt-2 border-t border-slate-700/50 ${isChecked ? 'block' : 'hidden'}" id="brand-container-${opt.id}">
-                            <label class="block text-[10px] font-semibold text-emerald-300 mb-1">Merek / Brand Produk:</label>
-                            <input type="text" 
-                                value="${itemState.brand || ''}" 
-                                placeholder="${opt.brandPlaceholder}" 
-                                oninput="updateBrand('${opt.id}', this.value)"
-                                class="w-full bg-slate-900/90 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-400">
-                        </div>
-                    ` : ''}
-                `;
-                container.appendChild(card);
-            });
-
-            // 2. Render Custom User Items (if any for this step)
-            const currentCustoms = customItems[currentStep] || [];
-            currentCustoms.forEach((cItem, index) => {
-                const card = document.createElement('div');
-                card.className = "p-3 rounded-xl border border-emerald-400/80 bg-emerald-500/15 text-white shadow-md pop-in flex flex-col justify-between";
-                card.innerHTML = `
-                    <div class="flex items-start justify-between gap-2">
-                        <div class="flex items-center gap-2">
-                            <div class="p-2 rounded-lg bg-emerald-500 text-slate-950 flex-shrink-0">
-                                <i class="fa-solid ${cItem.icon} text-sm"></i>
-                            </div>
-                            <div>
-                                <div class="font-bold text-xs sm:text-sm leading-snug">${cItem.name} <span class="text-[10px] text-amber-400 font-normal">(Lainnya)</span></div>
-                                <div class="text-[10px] text-slate-400">Merek: <span class="text-slate-200 font-medium">${cItem.brand || '-'}</span> • <span class="text-emerald-400 font-semibold">+${cItem.weight}g</span></div>
-                            </div>
-                        </div>
-                        <button onclick="removeCustomItem(${index})" class="text-rose-400 hover:text-rose-300 p-1 text-xs">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </button>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-
-            // 3. Render "Tambah Item Lainnya" Interactive Card
-            const customCard = document.createElement('div');
-            customCard.className = "p-3 rounded-xl border border-dashed border-slate-600 bg-slate-800/40 hover:bg-slate-800/70 transition col-span-1 sm:col-span-2";
-            customCard.innerHTML = `
-                <div class="text-xs font-bold text-amber-400 mb-2 flex items-center gap-1.5">
-                    <i class="fa-solid fa-plus-circle"></i> Tidak ada di pilihan? Tambahkan Sendiri:
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    <input type="text" id="custom-name" placeholder="Nama Barang (misal: Roti)" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-400">
-                    <input type="text" id="custom-brand" placeholder="Merek/Brand (misal: Sari Roti)" class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-400">
-                    <button onclick="addCustomItem()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-lg text-xs transition flex items-center justify-center gap-1">
-                        <i class="fa-solid fa-plus"></i> Tambah Item
-                    </button>
-                </div>
-            `;
-            container.appendChild(customCard);
-        }
-
-        function toggleOption(optionId) {
-            const stepState = userSelections[currentStep] || {};
-            const currentState = stepState[optionId] || { checked: false, brand: '' };
-            
-            stepState[optionId] = {
-                checked: !currentState.checked,
-                brand: currentState.brand
-            };
-            
-            userSelections[currentStep] = stepState;
-            renderStep();
-            updateBinUI();
-        }
-
-        function updateBrand(optionId, brandValue) {
-            if (userSelections[currentStep] && userSelections[currentStep][optionId]) {
-                userSelections[currentStep][optionId].brand = brandValue;
-            }
-            updateBinUI();
-        }
-
-        function addCustomItem() {
-            const nameInput = document.getElementById('custom-name');
-            const brandInput = document.getElementById('custom-brand');
-            
-            const name = nameInput.value.trim();
-            const brand = brandInput.value.trim();
-
-            if (name === "") {
-                alert("Harap isi nama barang terlebih dahulu!");
-                return;
-            }
-
-            const newItem = {
-                id: "custom_" + Date.now(),
-                name: name,
-                brand: brand !== "" ? brand : "Tidak Disebutkan",
-                type: "Sampah Plastik/Kemasan Lainnya",
-                weight: 15, // default estimated weight
-                icon: "fa-box-open"
-            };
-
-            if (!customItems[currentStep]) customItems[currentStep] = [];
-            customItems[currentStep].push(newItem);
-
-            renderStep();
-            updateBinUI();
-        }
-
-        function removeCustomItem(index) {
-            if (customItems[currentStep]) {
-                customItems[currentStep].splice(index, 1);
-                renderStep();
-                updateBinUI();
-            }
-        }
-
-        function updateBinUI() {
-            let totalWeight = 0;
-            let totalItems = 0;
-            const iconsContainer = document.getElementById('bin-items-icons');
-            iconsContainer.innerHTML = '';
-
-            // 1. Calculate preset selections
-            Object.keys(userSelections).forEach(stepIdx => {
-                const stepState = userSelections[stepIdx];
-                const stepOptions = gameSteps[stepIdx].options;
-
-                Object.keys(stepState).forEach(optId => {
-                    if (stepState[optId].checked) {
-                        const item = stepOptions.find(o => o.id === optId);
-                        if (item && item.weight > 0) {
-                            totalWeight += item.weight;
-                            totalItems++;
-
-                            const iconEl = document.createElement('i');
-                            iconEl.className = `fa-solid ${item.icon} text-xs text-emerald-200 bg-emerald-700/60 p-1.5 rounded-md`;
-                            iconEl.title = `${item.name} (${stepState[optId].brand || 'Tanpa Merek'})`;
-                            iconsContainer.appendChild(iconEl);
-                        }
-                    }
-                });
-            });
-
-            // 2. Calculate custom items
-            Object.keys(customItems).forEach(stepIdx => {
-                const cList = customItems[stepIdx] || [];
-                cList.forEach(cItem => {
-                    totalWeight += cItem.weight;
-                    totalItems++;
-
-                    const iconEl = document.createElement('i');
-                    iconEl.className = `fa-solid ${cItem.icon} text-xs text-amber-200 bg-amber-700/60 p-1.5 rounded-md`;
-                    iconEl.title = `${cItem.name} (${cItem.brand})`;
-                    iconsContainer.appendChild(iconEl);
-                });
-            });
-
-            // Update numerical text
-            document.getElementById('live-weight').innerText = totalWeight;
-            document.getElementById('live-item-count').innerText = totalItems;
-
-            // Animate Bin Height
-            const filler = document.getElementById('bin-filler');
-            const emptyText = document.getElementById('empty-bin-text');
-            const fillPercentage = Math.min((totalWeight / 300) * 100, 100);
-
-            filler.style.height = `${fillPercentage}%`;
-
-            if (totalWeight > 0) {
-                emptyText.classList.add('opacity-0');
-            } else {
-                emptyText.classList.remove('opacity-0');
-            }
-        }
-
-        function nextStep() {
-            if (currentStep < gameSteps.length - 1) {
-                currentStep++;
-                renderStep();
-            } else {
-                showResults();
-            }
-        }
-
-        function prevStep() {
-            if (currentStep > 0) {
-                currentStep--;
-                renderStep();
-            }
-        }
-
-        function showResults() {
-            document.getElementById('game-screen').classList.add('hidden');
-            document.getElementById('user-badge').classList.add('hidden');
-            document.getElementById('result-screen').classList.remove('hidden');
-
-            document.getElementById('result-user-name').innerText = userName;
-
-            let totalWeight = 0;
-            let totalItems = 0;
-            let typeMap = {};
-            let brandAuditTrail = [];
-
-            // 1. Process presets
-            Object.keys(userSelections).forEach(stepIdx => {
-                const stepState = userSelections[stepIdx];
-                const stepOptions = gameSteps[stepIdx].options;
-
-                Object.keys(stepState).forEach(optId => {
-                    if (stepState[optId].checked) {
-                        const item = stepOptions.find(o => o.id === optId);
-                        if (item && item.weight > 0) {
-                            totalWeight += item.weight;
-                            totalItems++;
-                            
-                            typeMap[item.type] = (typeMap[item.type] || 0) + item.weight;
-                            
-                            const brandEntered = stepState[optId].brand ? stepState[optId].brand.trim() : "Tidak Diisi";
-                            brandAuditTrail.push({ name: item.name, brand: brandEntered, weight: item.weight });
-                        }
-                    }
-                });
-            });
-
-            // 2. Process custom items
-            Object.keys(customItems).forEach(stepIdx => {
-                const cList = customItems[stepIdx] || [];
-                cList.forEach(cItem => {
-                    totalWeight += cItem.weight;
-                    totalItems++;
-
-                    typeMap[cItem.type] = (typeMap[cItem.type] || 0) + cItem.weight;
-                    brandAuditTrail.push({ name: cItem.name, brand: cItem.brand, weight: cItem.weight });
-                });
-            });
-
-            // Render Big Totals
-            document.getElementById('final-weight').innerText = `${totalWeight} gram`;
-            document.getElementById('final-items').innerText = `dari total ${totalItems} produk/kemasan tercatat`;
-
-            // Render Breakdown Progress Bars
-            const breakdownContainer = document.getElementById('breakdown-list');
-            breakdownContainer.innerHTML = '';
-
-            if (totalWeight === 0) {
-                breakdownContainer.innerHTML = `<div class="text-slate-400 italic">Luar biasa ${userName}! Kamu tidak menghasilkan sampah plastik/kemasan sama sekali hari ini! 🎉</div>`;
-            } else {
-                Object.keys(typeMap).forEach(type => {
-                    const weight = typeMap[type];
-                    const percentage = Math.round((weight / totalWeight) * 100);
-
-                    const row = document.createElement('div');
-                    row.innerHTML = `
-                        <div class="flex justify-between text-slate-300 mb-1">
-                            <span>${type}</span>
-                            <span class="font-bold text-emerald-400">${weight}g (${percentage}%)</span>
-                        </div>
-                        <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden">
-                            <div class="bg-emerald-400 h-full rounded-full" style="width: ${percentage}%"></div>
-                        </div>
-                    `;
-                    breakdownContainer.appendChild(row);
-                });
-            }
-
-            // Render Brand Audit Trail
-            const brandContainer = document.getElementById('brand-list');
-            brandContainer.innerHTML = '';
-
-            if (brandAuditTrail.length === 0) {
-                brandContainer.innerHTML = `<li class="py-2 text-slate-500 italic">Tidak ada kemasan yang dicatat.</li>`;
-            } else {
-                brandAuditTrail.forEach(b => {
-                    const li = document.createElement('li');
-                    li.className = "py-2 flex justify-between items-center";
-                    li.innerHTML = `
-                        <div>
-                            <span class="font-semibold text-slate-200">${b.name}</span>
-                            <span class="block text-[10px] text-amber-400">Merek: ${b.brand}</span>
-                        </div>
-                        <span class="text-slate-400 font-mono text-[11px]">+${b.weight}g</span>
-                    `;
-                    brandContainer.appendChild(li);
-                });
-            }
-
-            // Generate Analogy
-            const yearlyKg = ((totalWeight * 365) / 1000).toFixed(1);
-            const analogyEl = document.getElementById('analogy-text');
-            
-            if (totalWeight === 0) {
-                analogyEl.innerHTML = `Gaya hidup ${userName} sangat ramah lingkungan (*Zero Waste*)! Pertahankan kebiasaan baik ini.`;
-            } else if (totalWeight < 100) {
-                analogyEl.innerHTML = `Jejak sampah ${userName} tergolong moderat. Dalam setahun kamu membuang sekitar <b>${yearlyKg} kg</b> sampah kemasan.`;
-            } else {
-                analogyEl.innerHTML = `Jika pola konsumsi ini berlanjut, dalam 1 tahun ${userName} menghasilkan <b>${yearlyKg} kg sampah</b>! Setara dengan berat <b>${Math.round(yearlyKg / 10)} galon air mineral penuh</b>.`;
-            }
-        }
-
-        function resetGame() {
-            document.getElementById('result-screen').classList.add('hidden');
-            startGame();
+        function startActivity() {
+            alert("Aktivitas 'A Day in My Life' bersama WALHI Jatim dimulai!");
         }
     </script>
 </body>
