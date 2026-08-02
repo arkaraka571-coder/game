@@ -6,12 +6,12 @@
     <title>A Day in My Life - WALHI Jatim</title>
     <style>
         :root {
-            --primary-color: #2e7d32;
-            --primary-hover: #1b5e20;
-            --bg-color: #f4f6f8;
+            --primary: #2e7d32;
+            --primary-dark: #1b5e20;
+            --accent: #ff9800;
+            --bg-color: #eef5f0;
             --card-bg: #ffffff;
-            --text-color: #333333;
-            --border-color: #e0e0e0;
+            --text-color: #2c3e50;
         }
 
         * {
@@ -31,147 +31,316 @@
             padding: 20px;
         }
 
-        .container {
+        .main-card {
             background-color: var(--card-bg);
-            max-width: 650px;
+            max-width: 680px;
             width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             padding: 30px;
-            border: 1px solid var(--border-color);
+            border: 1px solid #dcdcdc;
         }
 
-        .header {
+        .branding-header {
             text-align: center;
-            margin-bottom: 25px;
-            border-bottom: 2px solid var(--bg-color);
-            padding-bottom: 15px;
+            margin-bottom: 20px;
         }
 
-        .brand-tag {
+        .brand-badge {
+            background: #e8f5e9;
+            color: var(--primary-dark);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 800;
             font-size: 0.9rem;
+            letter-spacing: 1px;
+            display: inline-block;
+            border: 1px solid #a5d6a7;
+        }
+
+        /* Status & Level Player */
+        .player-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f1f8e9;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--primary);
+        }
+
+        .badge-title {
             font-weight: 700;
-            color: var(--primary-color);
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
+            color: var(--primary-dark);
+        }
+
+        .points-display {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        /* Pilihan Kategori Interaktif */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .cat-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #fafafa;
+        }
+
+        .cat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .cat-card.selected {
+            border-color: var(--primary);
+            background-color: #e8f5e9;
+        }
+
+        .cat-icon {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .cat-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .cat-weight {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        /* Input Form */
+        .input-box {
+            margin-bottom: 20px;
+        }
+
+        .input-box label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary);
         }
 
         .btn-cta {
-            display: block;
             width: 100%;
-            background-color: var(--primary-color);
+            background-color: var(--primary);
             color: white;
             border: none;
-            padding: 14px 20px;
+            padding: 16px;
             font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 8px;
+            font-weight: 700;
+            border-radius: 10px;
             cursor: pointer;
-            transition: background-color 0.2s ease;
-            margin-top: 15px;
-            text-align: center;
+            box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3);
+            transition: all 0.2s ease;
         }
 
         .btn-cta:hover {
-            background-color: var(--primary-hover);
+            background-color: var(--primary-dark);
+            transform: scale(1.01);
         }
 
-        /* Disclaimer & Methodology Section */
+        /* Modal / Pop-up Metodologi & Disclaimer */
         .methodology-box {
-            background-color: #f9fbe7;
-            border-left: 4px solid #827717;
-            padding: 20px;
-            border-radius: 0 8px 8px 0;
+            background-color: #fffde7;
+            border: 1px solid #fff59d;
+            border-left: 4px solid #fbc02d;
+            padding: 18px;
+            border-radius: 8px;
             margin-top: 25px;
-            font-size: 0.92rem;
-            line-height: 1.6;
+            font-size: 0.88rem;
+            line-height: 1.5;
         }
 
-        .methodology-box h3 {
-            color: #33691e;
-            margin-bottom: 10px;
-            font-size: 1.05rem;
+        .methodology-box h4 {
+            color: #f57f17;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .methodology-box ul, .methodology-box ol {
-            padding-left: 20px;
-            margin-bottom: 15px;
+            padding-left: 18px;
         }
 
-        .methodology-box li {
-            margin-bottom: 8px;
-        }
-
-        .sources {
-            border-top: 1px dashed #c0ca33;
-            padding-top: 12px;
-            margin-top: 12px;
-            font-size: 0.85rem;
-            color: #558b2f;
-        }
-
-        .sources strong {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .formula {
-            background-color: #ffffff;
-            padding: 8px 12px;
+        .formula-tag {
+            background: #fff;
+            padding: 4px 8px;
             border-radius: 4px;
-            border: 1px solid #dce775;
+            border: 1px solid #e0e0e0;
             font-family: monospace;
+            font-weight: bold;
             display: inline-block;
-            margin-top: 5px;
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- Header & Branding -->
-        <div class="header">
-            <span class="brand-tag">WALHI Jatim</span>
-            <button class="btn-cta" onclick="startActivity()">A Day in My Life</button>
+    <div class="main-card">
+        <!-- Branding Header -->
+        <div class="branding-header">
+            <span class="brand-badge">WALHI JATIM</span>
         </div>
 
-        <!-- Disclaimer & Metodologi Pengukuran -->
+        <!-- Dashboard Pemain -->
+        <div class="player-status">
+            <div>
+                <small style="color: #666;">Level Aktivis:</small>
+                <div class="badge-title" id="playerRank">🌱 Pemilah Pemula</div>
+            </div>
+            <div>
+                <small style="color: #666;">Total Capaian:</small>
+                <div class="points-display" id="totalPoints">0 Poin</div>
+            </div>
+        </div>
+
+        <!-- Area Pemilihan Jenis Sampah (Pilih Salah Satu) -->
+        <label style="font-weight: 700; margin-bottom: 10px; display: block;">1. Pilih Jenis Material Daur Ulang:</label>
+        <div class="category-grid">
+            <div class="cat-card selected" onclick="selectCategory(this, 100)">
+                <span class="cat-icon">🥤</span>
+                <div class="cat-title">Plastik</div>
+                <div class="cat-weight">x100 Poin/kg</div>
+            </div>
+            <div class="cat-card" onclick="selectCategory(this, 80)">
+                <span class="cat-icon">📦</span>
+                <div class="cat-title">Kertas & Karton</div>
+                <div class="cat-weight">x80 Poin/kg</div>
+            </div>
+            <div class="cat-card" onclick="selectCategory(this, 120)">
+                <span class="cat-icon">🥫</span>
+                <div class="cat-title">Kaleng & Logam</div>
+                <div class="cat-weight">x120 Poin/kg</div>
+            </div>
+            <div class="cat-card" onclick="selectCategory(this, 50)">
+                <span class="cat-icon">🍂</span>
+                <div class="cat-title">Organik</div>
+                <div class="cat-weight">x50 Poin/kg</div>
+            </div>
+        </div>
+
+        <!-- Input Berat -->
+        <div class="input-box">
+            <label for="weightInput">2. Masukkan Berat Hasil Penimbangan (Kg):</label>
+            <div class="input-group">
+                <input type="number" id="weightInput" step="0.1" placeholder="Contoh: 2.5">
+            </div>
+        </div>
+
+        <!-- Action Button -->
+        <button class="btn-cta" onclick="submitActivity()">A Day in My Life</button>
+
+        <!-- Disclaimer & Metodologi Validasi -->
         <div class="methodology-box">
-            <h3>📢 Catatan & Metodologi Pengukuran Berat</h3>
-            <p><strong>Mengapa Pengukuran Ini Penting?</strong><br>
-            WALHI Jatim berkomitmen menjaga keadilan dan transparansi bagi seluruh peserta. Setiap poin atau capaian yang Anda dapatkan dihitung berdasarkan bobot riil yang terverifikasi.</p>
-            
-            <br>
-            <strong>Metodologi Pengukuran yang Digunakan:</strong>
-            <ol>
-                <li><strong>Standar Perhitungan:</strong> Penimbangan mengacu pada <em>Standar Operasional Prosedur (SOP)</em> penimbangan material/sampah terpisah dengan toleransi margin eror sebesar &plusmn; 5%.</li>
-                <li><strong>Verifikasi Data:</strong>
-                    <ul>
-                        <li>Setiap input wajib menyertakan foto angka digital/jarum pada timbangan di atas permukaan rata.</li>
-                        <li>Sistem mengaplikasikan <em>Sanity Check</em> (deteksi anomali otomatis) untuk mencegah manipulasi data.</li>
-                    </ul>
-                </li>
-                <li><strong>Format Konversi:</strong> Perhitungan skor dilakukan secara otomatis dengan rumus transparan:
-                    <div class="formula">Skor Akhir = Berat Bersih (kg) &times; Bobot Kategori Material</div>
+            <h4>📊 Metodologi Pengukuran & Transparansi Data</h4>
+            <p>Sistem ini dirancang transparan untuk memastikan validitas aksi lingkungan Anda:</p>
+            <ol style="margin-top: 5px;">
+                <li><strong>Standar Prosedur:</strong> Penimbangan berbasis SOP pemilahan material terpisah (Toleransi &plusmn;5%).</li>
+                <li><strong>Verifikasi Visual:</strong> Data input melewati <i>Sanity Check</i> otomatis untuk mendeteksi anomali.</li>
+                <li><strong>Formula Skor:</strong> 
+                    <span class="formula-tag">Skor = Berat (kg) &times; Bobot Material</span>
                 </li>
             </ol>
-
-            <div class="sources">
-                <strong>📋 Rujukan & Sumber Standar:</strong>
-                <ul>
-                    <li>Pedoman Pengelolaan Sampah Spesifik & Daur Ulang (Kementerian Lingkungan Hidup dan Kehutanan / KLHK).</li>
-                    <li>Standar SNI 19-3964-1994 tentang Metode Pengambilan dan Pengukuran Contoh Timbulan dan Komposisi Sampah.</li>
-                </ul>
-            </div>
+            <hr style="margin: 10px 0; border: none; border-top: 1px dashed #dce775;">
+            <p style="font-size: 0.8rem; color: #558b2f;">
+                <b>Rujukan Resmi:</b> Pedoman Pengelolaan Sampah KLHK & SNI 19-3964-1994.
+            </p>
         </div>
     </div>
 
     <script>
-        function startActivity() {
-            alert("Aktivitas 'A Day in My Life' bersama WALHI Jatim dimulai!");
+        let currentMultiplier = 100;
+        let grandTotal = 0;
+
+        function selectCategory(element, multiplier) {
+            // Unselect all
+            document.querySelectorAll('.cat-card').forEach(card => card.classList.remove('selected'));
+            // Select current
+            element.classList.add('selected');
+            currentMultiplier = multiplier;
+        }
+
+        function submitActivity() {
+            const weightInput = document.getElementById('weightInput');
+            const weight = parseFloat(weightInput.value);
+
+            // Sanity Check
+            if (isNaN(weight) || weight <= 0) {
+                alert("⚠️ Harap masukkan berat timbangan yang valid!");
+                return;
+            }
+
+            if (weight > 100) {
+                alert("⚠️ Sanity Check: Input melebihi batas wajar harian (100kg). Harap periksa kembali penimbangan Anda.");
+                return;
+            }
+
+            // Hitung Poin
+            const earnedPoints = Math.round(weight * currentMultiplier);
+            grandTotal += earnedPoints;
+
+            // Update UI
+            document.getElementById('totalPoints').innerText = grandTotal + " Poin";
+            
+            // Update Rank / Badge Gamifikasi
+            updateRank(grandTotal);
+
+            // Efek Pesan Berhasil
+            alert(`🎉 A Day in My Life Teratat!\n\nAnda berhasil memilah ${weight} kg material dan mendapatkan +${earnedPoints} poin.`);
+            
+            // Reset input
+            weightInput.value = '';
+        }
+
+        function updateRank(score) {
+            const rankLabel = document.getElementById('playerRank');
+            if (score >= 1000) {
+                rankLabel.innerText = "🌳 Pahlawan Lingkungan";
+            } else if (score >= 500) {
+                rankLabel.innerText = "🌿 Pejuang WALHI Jatim";
+            } else if (score >= 200) {
+                rankLabel.innerText = "🍃 Pemilah Aktif";
+            } else {
+                rankLabel.innerText = "🌱 Pemilah Pemula";
+            }
         }
     </script>
 </body>
