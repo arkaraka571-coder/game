@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Day in My Life - WALHI Jatim</title>
-    <!-- Google Fonts untuk tampilan Playful/Game -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -14,7 +13,6 @@
             --bg-game: #ecfdf5;
             --card-bg: #ffffff;
             --text-main: #0f172a;
-            --border-radius: 20px;
         }
 
         * {
@@ -34,19 +32,17 @@
             padding: 20px;
         }
 
-        .game-wrapper {
+        .game-card-wrapper {
             background-color: var(--card-bg);
-            max-width: 550px;
+            max-width: 600px;
             width: 100%;
-            border-radius: var(--border-radius);
+            border-radius: 24px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
             padding: 25px;
             border: 4px solid #059669;
-            position: relative;
-            overflow: hidden;
         }
 
-        /* Top Header & Brand */
+        /* Header Brand */
         .brand-header {
             display: flex;
             justify-content: space-between;
@@ -58,167 +54,143 @@
             background-color: #d1fae5;
             color: var(--primary-dark);
             font-family: 'Fredoka', cursive;
-            padding: 6px 14px;
+            padding: 6px 16px;
             border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 700;
+            font-size: 0.95rem;
             border: 2px solid var(--primary);
         }
 
-        .day-tracker {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #64748b;
-        }
-
-        /* Hero Stats Board */
+        /* Score & Rank Board */
         .stats-board {
             background: linear-gradient(135deg, #10b981, #059669);
-            border-radius: 16px;
+            border-radius: 20px;
             padding: 20px;
             color: white;
             text-align: center;
             box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);
-            margin-bottom: 25px;
-            position: relative;
+            margin-bottom: 20px;
         }
 
-        .stats-board .level-title {
+        .stats-board .rank-title {
             font-family: 'Fredoka', cursive;
             font-size: 1.2rem;
             color: #fef08a;
-            margin-bottom: 5px;
         }
 
-        .stats-board .score-val {
-            font-size: 2.8rem;
+        .stats-board .total-weight {
+            font-size: 2.5rem;
             font-weight: 800;
-            line-height: 1;
-            margin-bottom: 10px;
+            line-height: 1.1;
+            margin: 5px 0;
         }
 
-        /* Progress Bar */
-        .progress-container {
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 20px;
-            height: 12px;
-            overflow: hidden;
-            width: 100%;
+        .stats-board .total-points {
+            font-size: 1rem;
+            opacity: 0.9;
         }
 
-        .progress-bar {
-            background: #fef08a;
-            height: 100%;
-            width: 0%;
-            transition: width 0.4s ease;
-            border-radius: 20px;
-        }
-
-        /* Category Cards (Interactive Selection) */
-        .section-label {
+        /* Item Grid Selection */
+        .section-title {
             font-weight: 800;
             font-size: 1rem;
             margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
-        .cards-grid {
+        .items-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
             margin-bottom: 20px;
         }
 
-        .game-card {
+        .item-card {
             background: #f8fafc;
             border: 3px solid #e2e8f0;
             border-radius: 16px;
-            padding: 15px;
+            padding: 12px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            user-select: none;
+            transition: all 0.2s ease;
+            position: relative;
         }
 
-        .game-card:hover {
-            transform: translateY(-4px);
+        .item-card:hover {
             border-color: #a7f3d0;
-        }
-
-        .game-card.active {
-            background: #ecfdf5;
-            border-color: var(--primary);
-            box-shadow: 0 6px 0 var(--primary-dark);
             transform: translateY(-2px);
         }
 
-        .card-emoji {
-            font-size: 2.2rem;
+        .item-card.selected {
+            background: #ecfdf5;
+            border-color: var(--primary);
+            box-shadow: 0 4px 0 var(--primary-dark);
+        }
+
+        .item-emoji {
+            font-size: 2rem;
             display: block;
-            margin-bottom: 5px;
         }
 
-        .card-name {
+        .item-name {
             font-weight: 700;
-            font-size: 0.95rem;
-        }
-
-        .card-multiplier {
-            font-size: 0.75rem;
-            color: #059669;
-            font-weight: 700;
+            font-size: 0.9rem;
             margin-top: 4px;
         }
 
-        /* Scale / Weight Section */
-        .scale-box {
+        .item-est {
+            font-size: 0.75rem;
+            color: #059669;
+            font-weight: 600;
+        }
+
+        /* Quantity Counter */
+        .count-box {
             background: #f1f5f9;
             border-radius: 16px;
-            padding: 15px;
-            margin-bottom: 20px;
+            padding: 12px 18px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 15px;
+            margin-bottom: 20px;
         }
 
-        .scale-input-wrapper {
+        .counter-controls {
             display: flex;
             align-items: center;
-            gap: 8px;
-            background: white;
-            padding: 8px 12px;
-            border-radius: 12px;
-            border: 2px solid #cbd5e1;
-            width: 100%;
+            gap: 12px;
         }
 
-        .scale-input-wrapper input {
-            border: none;
-            outline: none;
-            width: 100%;
+        .btn-counter {
+            background: white;
+            border: 2px solid #cbd5e1;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            font-weight: 800;
             font-size: 1.2rem;
-            font-weight: 700;
+            cursor: pointer;
             color: var(--text-main);
         }
 
-        /* Action CTA Button */
+        .count-val {
+            font-size: 1.3rem;
+            font-weight: 800;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        /* Action Button */
         .btn-action {
             width: 100%;
             background: #f59e0b;
             color: white;
             border: none;
-            padding: 18px;
+            padding: 16px;
             border-radius: 16px;
             font-family: 'Fredoka', cursive;
             font-size: 1.3rem;
-            letter-spacing: 0.5px;
             cursor: pointer;
             box-shadow: 0 6px 0 #d97706;
             transition: all 0.1s ease;
-            text-shadow: 0 2px 0 rgba(0,0,0,0.2);
         }
 
         .btn-action:hover {
@@ -230,238 +202,179 @@
             box-shadow: 0 2px 0 #d97706;
         }
 
-        /* Metodologi Accordion / Toggle */
-        .methodology-toggle {
+        /* Methodology Explanation Section */
+        .methodology-card {
+            background-color: #fffde7;
+            border: 2px solid #fde047;
+            border-radius: 16px;
+            padding: 18px;
             margin-top: 25px;
-            border-top: 2px dashed #cbd5e1;
-            padding-top: 15px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: #713f12;
         }
 
-        .methodology-btn {
-            background: none;
-            border: none;
-            color: #059669;
-            font-weight: 700;
-            font-size: 0.85rem;
-            cursor: pointer;
+        .methodology-card h4 {
+            font-family: 'Fredoka', cursive;
+            font-size: 1.05rem;
+            color: #a16207;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
-            gap: 5px;
-            width: 100%;
-            justify-content: center;
+            gap: 6px;
         }
 
-        .methodology-content {
-            display: none;
-            background: #fffbebfb;
-            border: 2px solid #fef08a;
-            border-radius: 12px;
-            padding: 15px;
-            margin-top: 10px;
-            font-size: 0.8rem;
-            line-height: 1.5;
-            color: #78350f;
-        }
-
-        .methodology-content.open {
+        .formula-box {
+            background: white;
+            border: 1px solid #fef08a;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-weight: bold;
+            margin: 8px 0;
             display: block;
         }
 
-        /* Popup Reward Animation */
-        .popup-overlay {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(15, 23, 42, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            z-index: 10;
-        }
-
-        .popup-overlay.show {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .popup-card {
-            background: white;
-            padding: 25px;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 80%;
-            transform: scale(0.8);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .popup-overlay.show .popup-card {
-            transform: scale(1);
-        }
-
-        .popup-card h3 {
-            font-family: 'Fredoka', cursive;
-            color: var(--primary-dark);
-            font-size: 1.5rem;
+        .source-tag {
+            border-top: 1px dashed #fde047;
+            padding-top: 8px;
             margin-top: 10px;
+            font-size: 0.78rem;
+            color: #854d0e;
         }
     </style>
 </head>
 <body>
 
-    <div class="game-wrapper">
-        <!-- Brand Header -->
+    <div class="game-card-wrapper">
+        <!-- Brand Badge -->
         <div class="brand-header">
             <span class="walhi-badge">🍃 WALHI JATIM</span>
-            <span class="day-tracker" id="timeState">☀️ Sesi Pagi</span>
+            <span style="font-weight: 700; font-size: 0.85rem; color: #64748b;">Simulasi Harian</span>
         </div>
 
-        <!-- Dashboard Score / Level -->
+        <!-- Dashboard Capaian -->
         <div class="stats-board">
-            <div class="level-title" id="playerRank">🌱 Pemilah Pemula</div>
-            <div class="score-val" id="scoreDisplay">0</div>
-            <div class="progress-container">
-                <div class="progress-bar" id="progressBar"></div>
+            <div class="rank-title" id="rankBadge">🌱 Pemilah Pemula</div>
+            <div class="total-weight" id="weightDisplay">0.00 <span style="font-size: 1.2rem;">Kg</span></div>
+            <div class="total-points" id="pointDisplay">Capaian: 0 Poin</div>
+        </div>
+
+        <!-- Area Pilih Item Sampah Harian -->
+        <div class="section-title">1. Pilih Barang Sampah Hari Ini:</div>
+        <div class="items-grid">
+            <div class="item-card selected" onclick="selectItem(this, 0.015, 100, 'Botol Plastik (600ml)')">
+                <span class="item-emoji">🍾</span>
+                <div class="item-name">Botol Plastik</div>
+                <div class="item-est">~0.015 kg/pcs</div>
+            </div>
+            <div class="item-card" onclick="selectItem(this, 0.005, 100, 'Kantong Kresek')">
+                <span class="item-emoji">🛍️</span>
+                <div class="item-name">Kantong Kresek</div>
+                <div class="item-est">~0.005 kg/pcs</div>
+            </div>
+            <div class="item-card" onclick="selectItem(this, 0.020, 80, 'Kardus / Karton')">
+                <span class="item-emoji">📦</span>
+                <div class="item-name">Kardus Makanan</div>
+                <div class="item-est">~0.020 kg/pcs</div>
+            </div>
+            <div class="item-card" onclick="selectItem(this, 0.012, 120, 'Kaleng Minuman')">
+                <span class="item-emoji">🥫</span>
+                <div class="item-name">Kaleng Minuman</div>
+                <div class="item-est">~0.012 kg/pcs</div>
             </div>
         </div>
 
-        <!-- Selection Cards -->
-        <div class="section-label">1. Pilih Jenis Sampah Daur Ulang</div>
-        <div class="cards-grid">
-            <div class="game-card active" onclick="selectCard(this, 100, '🥤 Plastik')">
-                <span class="card-emoji">🥤</span>
-                <div class="card-name">Plastik</div>
-                <div class="card-multiplier">+100 Poin / kg</div>
-            </div>
-            <div class="game-card" onclick="selectCard(this, 80, '📦 Kertas & Karton')">
-                <span class="card-emoji">📦</span>
-                <div class="card-name">Kertas/Karton</div>
-                <div class="card-multiplier">+80 Poin / kg</div>
-            </div>
-            <div class="game-card" onclick="selectCard(this, 120, '🥫 Kaleng & Logam')">
-                <span class="card-emoji">🥫</span>
-                <div class="card-name">Logam/Kaleng</div>
-                <div class="card-multiplier">+120 Poin / kg</div>
-            </div>
-            <div class="game-card" onclick="selectCard(this, 50, '🍂 Organik')">
-                <span class="card-emoji">🍂</span>
-                <div class="card-name">Organik</div>
-                <div class="card-multiplier">+50 Poin / kg</div>
-            </div>
-        </div>
-
-        <!-- Weight Input -->
-        <div class="section-label">2. Masukkan Hasil Timbangan</div>
-        <div class="scale-box">
-            <div class="scale-input-wrapper">
-                <span>⚖️</span>
-                <input type="number" id="weightInput" step="0.1" placeholder="Berat (Kg)...">
-                <span style="font-weight: 700; color: #94a3b8;">Kg</span>
+        <!-- Jumlah Item -->
+        <div class="count-box">
+            <span style="font-weight: 700; font-size: 0.95rem;">2. Jumlah Barang (Pcs):</span>
+            <div class="counter-controls">
+                <button class="btn-counter" onclick="changeQty(-1)">-</button>
+                <span class="count-val" id="qtyVal">1</span>
+                <button class="btn-counter" onclick="changeQty(1)">+</button>
             </div>
         </div>
 
         <!-- Action Button -->
-        <button class="btn-action" onclick="playGame()">A Day in My Life</button>
+        <button class="btn-action" onclick="addActivity()">A Day in My Life</button>
 
-        <!-- Transparansi Metodologi Toggle -->
-        <div class="methodology-toggle">
-            <button class="methodology-btn" onclick="toggleMethodology()">
-                🔍 Lihat Metodologi & Transparansi Pengukuran ▼
-            </button>
-            <div class="methodology-content" id="methodologyContent">
-                <strong>📋 Metodologi Pengukuran Berat (WALHI Jatim):</strong>
-                <ol style="margin-left: 15px; margin-top: 5px;">
-                    <li><b>SOP Penimbangan:</b> Pengukuran material terpisah dengan margin eror &plusmn;5%.</li>
-                    <li><b>Sanity Check:</b> Algoritma deteksi anomali otomatis untuk cegah input fiktif.</li>
-                    <li><b>Formula Skor:</b> <code>Skor = Berat (kg) &times; Bobot Material</code></li>
-                </ol>
-                <div style="margin-top: 8px; font-size: 0.75rem;">
-                    <b>Rujukan:</b> SNI 19-3964-1994 & Pedoman Pengelolaan Sampah KLHK.
-                </div>
+        <!-- Blok Penjelasan Metodologi Kalkulasi -->
+        <div class="methodology-card">
+            <h4>📐 Bagaimanakah Sistem Menghitung Berat & Poin Ini?</h4>
+            <p>Aplikasi menggunakan metodologi estimasi berstandar untuk mengonversi jumlah barang menjadi berat riil dan poin aksi:</p>
+            
+            <div class="formula-box">
+                1. Est. Berat (Kg) = Jumlah Barang (Pcs) &times; Rata-rata Berat Material<br>
+                2. Total Poin = Total Berat (Kg) &times; Bobot Kategori Material
             </div>
-        </div>
 
-        <!-- Popup Modal Result -->
-        <div class="popup-overlay" id="popup">
-            <div class="popup-card">
-                <div style="font-size: 3rem;">🎉</div>
-                <h3 id="popupTitle">Aksi Berhasil!</h3>
-                <p id="popupDesc" style="margin: 10px 0; color: #475569; font-size: 0.9rem;"></p>
-                <button class="btn-action" style="padding: 10px 20px; font-size: 1rem; margin-top: 10px;" onclick="closePopup()">Lanjutkan Aktivitas</button>
+            <ul style="margin-left: 18px; margin-top: 5px;">
+                <li><b>Rata-rata Berat Item:</b> Ditentukan berdasarkan standar sampel timbulan sampah plastik, kertas, dan logam.</li>
+                <li><b>Sanity Check:</b> Sistem memverifikasi batas wajar harian untuk menjaga konsistensi data.</li>
+            </ul>
+
+            <div class="source-tag">
+                <b>📋 Rujukan Standar:</b> SNI 19-3964-1994 (Pengambilan & Pengukuran Contoh Timbulan Sampah) & Pedoman Pengelolaan Sampah KLHK.
             </div>
         </div>
     </div>
 
     <script>
-        let currentMultiplier = 100;
-        let selectedMaterialName = "🥤 Plastik";
-        let totalScore = 0;
-        let targetScore = 500;
+        let selectedUnitWeight = 0.015; // kg
+        let selectedCategoryMultiplier = 100;
+        let selectedName = "Botol Plastik";
+        let quantity = 1;
 
-        function selectCard(element, multiplier, name) {
-            document.querySelectorAll('.game-card').forEach(c => c.classList.remove('active'));
-            element.classList.add('active');
-            currentMultiplier = multiplier;
-            selectedMaterialName = name;
+        let grandTotalWeight = 0;
+        let grandTotalPoints = 0;
+
+        function selectItem(card, unitWeight, multiplier, name) {
+            document.querySelectorAll('.item-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            
+            selectedUnitWeight = unitWeight;
+            selectedCategoryMultiplier = multiplier;
+            selectedName = name;
         }
 
-        function playGame() {
-            const input = document.getElementById('weightInput');
-            const weight = parseFloat(input.value);
-
-            if (isNaN(weight) || weight <= 0) {
-                alert("⚠️ Masukkan angka berat timbangan yang valid!");
-                return;
-            }
-
-            // Sanity Check
-            if (weight > 50) {
-                alert("⚠️ [Sanity Check WALHI Jatim]: Input melebihi batas wajar harian (50kg). Silakan cek kembali timbangan Anda.");
-                return;
-            }
-
-            const earned = Math.round(weight * currentMultiplier);
-            totalScore += earned;
-
-            // Update UI & Animation
-            document.getElementById('scoreDisplay').innerText = totalScore;
-            updateProgress();
-
-            // Show Popup
-            document.getElementById('popupTitle').innerText = `+${earned} Poin Diberikan!`;
-            document.getElementById('popupDesc').innerText = `Kamu berhasil memilah ${weight} kg (${selectedMaterialName}) dalam agenda 'A Day in My Life'.`;
-            document.getElementById('popup').classList.add('show');
-
-            input.value = '';
+        function changeQty(delta) {
+            quantity = Math.max(1, quantity + delta);
+            document.getElementById('qtyVal').innerText = quantity;
         }
 
-        function updateProgress() {
-            let pct = Math.min((totalScore / targetScore) * 100, 100);
-            document.getElementById('progressBar').style.width = pct + '%';
+        function addActivity() {
+            // Kalkulasi Otomatis oleh Sistem
+            const addedWeight = quantity * selectedUnitWeight;
+            const addedPoints = Math.round(addedWeight * selectedCategoryMultiplier);
 
-            const rank = document.getElementById('playerRank');
-            const timeState = document.getElementById('timeState');
+            grandTotalWeight += addedWeight;
+            grandTotalPoints += addedPoints;
 
-            if (totalScore >= 500) {
+            // Update Tampilan UI
+            document.getElementById('weightDisplay').innerHTML = grandTotalWeight.toFixed(3) + ' <span style="font-size: 1.2rem;">Kg</span>';
+            document.getElementById('pointDisplay').innerText = `Capaian: ${grandTotalPoints} Poin`;
+
+            // Update Badge Gamifikasi
+            updateBadge(grandTotalPoints);
+
+            alert(`🎉 Aktivitas Ditambahkan!\n\n${quantity} pcs ${selectedName}\n= +${addedWeight.toFixed(3)} Kg (${addedPoints} Poin)`);
+
+            // Reset Qty ke 1
+            quantity = 1;
+            document.getElementById('qtyVal').innerText = 1;
+        }
+
+        function updateBadge(points) {
+            const rank = document.getElementById('rankBadge');
+            if (points >= 300) {
                 rank.innerText = "🌳 Pahlawan Lingkungan";
-                timeState.innerText = "🌙 Sesi Malam (Selesai)";
-            } else if (totalScore >= 250) {
+            } else if (points >= 150) {
                 rank.innerText = "🌿 Pejuang WALHI Jatim";
-                timeState.innerText = "🌇 Sesi Sore";
-            } else if (totalScore >= 100) {
+            } else if (points >= 50) {
                 rank.innerText = "🍃 Pemilah Aktif";
-                timeState.innerText = "🌤️ Sesi Siang";
+            } else {
+                rank.innerText = "🌱 Pemilah Pemula";
             }
-        }
-
-        function closePopup() {
-            document.getElementById('popup').classList.remove('show');
-        }
-
-        function toggleMethodology() {
-            const content = document.getElementById('methodologyContent');
-            content.classList.toggle('open');
         }
     </script>
 </body>
